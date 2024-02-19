@@ -9,3 +9,25 @@ npx expo install react-native-screens react-native-safe-area-context
 
 [Lottie React Native](https://airbnb.io/lottie/#/react-native) |
 [react-native-onboarding-swiper](https://www.npmjs.com/package/react-native-onboarding-swiper)
+
+---
+
+## [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/)
+
+```sh
+npx expo install react-native-reanimated
+```
+
+```sh
+  module.exports = {
+    presets: [
+      ... // don't add it here :)
+    ],
+    plugins: [
+      ...
+      'react-native-reanimated/plugin',
+    ],
+  };
+```
+
+> `react-native-reanimated/plugin` has to be listed last.
