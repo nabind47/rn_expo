@@ -38,3 +38,24 @@ npx expo install react-native-reanimated
 npm i @gorhom/bottom-sheet@^4
 npx expo install react-native-reanimated react-native-gesture-handler
 ```
+
+## [Gradient Backgrounds](https://www.npmjs.com/package/react-native-linear-gradient)
+
+```sh
+npm install react-native-linear-gradient
+
+import LinearGradient from 'react-native-linear-gradient';
+```
+
+```tsx
+const Home = () => {
+  return (
+    <LinearGradient
+      colors={["#FF407D", "#FB88B4", "#7F27FF", "#40A2E3"]}
+      style={styles.container}
+    />
+  );
+};
+```
+
+> [An In-Depth Look at React Gradient Backgrounds](<(https://www.dhiwise.com/post/an-in-depth-look-at-react-gradient-backgrounds)>)
