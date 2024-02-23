@@ -31,3 +31,10 @@ npx expo install react-native-reanimated
 ```
 
 > `react-native-reanimated/plugin` has to be listed last.
+
+## [Bottom Sheet](https://ui.gorhom.dev/components/bottom-sheet/)
+
+```sh
+npm i @gorhom/bottom-sheet@^4
+npx expo install react-native-reanimated react-native-gesture-handler
+```

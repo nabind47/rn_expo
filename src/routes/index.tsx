@@ -6,6 +6,7 @@ import Home from "@/screens/Home";
 import Onboarding from "@/screens/Onboarding";
 
 import { useStorage } from "@/hooks/useStorage";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,22 +28,24 @@ const Routes = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={showOnboarding ? "Onboarding" : "Home"}
-      >
-        <Stack.Screen
-          name="Onboarding"
-          options={{ headerShown: false }}
-          component={Onboarding}
-        />
-        <Stack.Screen
-          name="Home"
-          options={{ headerShown: false }}
-          component={Home}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={showOnboarding ? "Onboarding" : "Home"}
+        >
+          <Stack.Screen
+            name="Onboarding"
+            options={{ headerShown: false }}
+            component={Onboarding}
+          />
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

@@ -1,52 +1,51 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from "react-native-reanimated";
-
-const duration = 2000;
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { useCallback, useMemo, useRef } from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 const Home = () => {
-  const defaultAnim = useSharedValue(200);
-  const linear = useSharedValue(200);
+  const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
 
-  const animatedDefault = useAnimatedStyle(() => ({
-    transform: [{ translateX: defaultAnim.value }],
-  }));
-  const animatedChanged = useAnimatedStyle(() => ({
-    transform: [{ translateX: linear.value }],
-  }));
+  const bottomSheetRef = useRef<BottomSheet>(null);
 
-  React.useEffect(() => {
-    linear.value = withRepeat(
-      withTiming(-linear.value, {
-        duration,
-        easing: Easing.linear,
-      }),
-      -1,
-      true
-    );
-    defaultAnim.value = withRepeat(
-      withTiming(-defaultAnim.value, {
-        duration,
-      }),
-      -1,
-      true
-    );
-  }, []);
+  const handleClosePress = () => bottomSheetRef.current?.close();
+  const handleOpenPress = () => bottomSheetRef.current?.expand();
+  const handleCollapsePress = () => bottomSheetRef.current?.collapse();
+  const snapeToIndex = (index: number) =>
+    bottomSheetRef.current?.snapToIndex(index);
+  const renderBackdrop = useCallback(
+    (props: any) => (
+      <BottomSheetBackdrop
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+        {...props}
+      />
+    ),
+    []
+  );
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.box, animatedDefault]}>
-        <Text style={styles.text}>in out</Text>
-      </Animated.View>
-      <Animated.View style={[styles.box, animatedChanged]}>
-        <Text style={styles.text}>linear</Text>
-      </Animated.View>
+      <Button title="Open" onPress={handleOpenPress} />
+      <Button title="Close" onPress={handleClosePress} />
+      <Button title="Collapse" onPress={handleCollapsePress} />
+      <Button title="Snap To 0" onPress={() => snapeToIndex(0)} />
+      <Button title="Snap To 1" onPress={() => snapeToIndex(1)} />
+      <Button title="Snap To 2" onPress={() => snapeToIndex(2)} />
+
+      <BottomSheet
+        ref={bottomSheetRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+        handleIndicatorStyle={{ backgroundColor: "#fff" }}
+        backgroundStyle={{ backgroundColor: "#1d0f4e" }}
+        backdropComponent={renderBackdrop}
+      >
+        <View style={styles.contentContainer}>
+          <Text style={styles.containerHeadline}>Awesome Bottom Sheet 🎉</Text>
+          <Button title="Close" onPress={handleClosePress} />
+        </View>
+      </BottomSheet>
     </View>
   );
 };
@@ -56,22 +55,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: "100%",
   },
-  box: {
-    height: 80,
-    width: 80,
-    margin: 20,
-    borderWidth: 1,
-    borderColor: "#b58df1",
-    borderRadius: 20,
+  contentContainer: {
+    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
-  text: {
-    color: "#b58df1",
-    textTransform: "uppercase",
-    fontWeight: "bold",
+  containerHeadline: {
+    fontSize: 24,
+    fontWeight: "600",
+    padding: 20,
   },
 });
 
