@@ -70,3 +70,31 @@ const Home = () => {
   );
 };
 ```
+
+## Interpolation
+
+```tsx
+const animation = useSharedValue(0);
+const [clicked, setClicked] = useState(false);
+
+const width = interpolate(animation.value, [1, 0], [100, 200]);
+const borderRadius = interpolate(animation.value, [1, 0], [0, 100]);
+const backgroundColor = interpolateColor(
+  animation.value,
+  [1, 0],
+  ["pink", "orange"]
+);
+
+const animatedStyle = useAnimatedStyle(() => {
+  return {
+    width,
+    height: width,
+    backgroundColor,
+    borderRadius,
+  };
+});
+
+<Animated.View
+  style={[{ width: 100, height: 100, backgroundColor: "pink" }, animatedStyle]}
+/>;
+```

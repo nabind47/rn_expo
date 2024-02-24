@@ -1,16 +1,32 @@
 import { useState } from "react";
 import { Button, View } from "react-native";
 import Animated, {
+  interpolate,
+  interpolateColor,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
+  withSpring,
 } from "react-native-reanimated";
 
 const Home = () => {
   const animation = useSharedValue(0);
   const [clicked, setClicked] = useState(false);
+
+  const width = interpolate(animation.value, [1, 0], [100, 200]);
+  const borderRadius = interpolate(animation.value, [1, 0], [0, 100]);
+  const backgroundColor = interpolateColor(
+    animation.value,
+    [1, 0],
+    ["pink", "orange"]
+  );
+
   const animatedStyle = useAnimatedStyle(() => {
-    return { translateX: animation.value };
+    return {
+      width,
+      height: width,
+      backgroundColor,
+      borderRadius,
+    };
   });
 
   return (
@@ -21,14 +37,13 @@ const Home = () => {
           animatedStyle,
         ]}
       />
-
       <Button
         title="Animate"
         onPress={() => {
           if (clicked) {
-            animation.value = withTiming(100, { duration: 100 });
+            animation.value = withSpring(1);
           } else {
-            animation.value = withTiming(-100, { duration: 600 });
+            animation.value = withSpring(0);
           }
           setClicked(!clicked);
         }}
