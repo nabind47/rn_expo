@@ -1,53 +1,44 @@
-import { useState } from "react";
-import { Button, View } from "react-native";
+import { View } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, {
-  interpolate,
-  interpolateColor,
+  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
 
 const Home = () => {
-  const animation = useSharedValue(0);
-  const [clicked, setClicked] = useState(false);
+  const x = useSharedValue(0);
+  const y = useSharedValue(0);
 
-  const width = interpolate(animation.value, [1, 0], [100, 200]);
-  const borderRadius = interpolate(animation.value, [1, 0], [0, 100]);
-  const backgroundColor = interpolateColor(
-    animation.value,
-    [1, 0],
-    ["pink", "orange"]
-  );
-
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (e, c) => {
+      c.startX = x.value;
+      c.startY = y.value;
+    },
+    onActive: (e, c: any) => {
+      x.value = c.startX + e.translationX;
+      y.value = c.startY + e.translationY;
+    },
+    onEnd: (e, c) => {
+      x.value = withSpring(0);
+      y.value = withSpring(0);
+    },
+  });
   const animatedStyle = useAnimatedStyle(() => {
-    return {
-      width,
-      height: width,
-      backgroundColor,
-      borderRadius,
-    };
+    return { transform: [{ translateX: x.value }, { translateY: y.value }] };
   });
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Animated.View
-        style={[
-          { width: 100, height: 100, backgroundColor: "pink" },
-          animatedStyle,
-        ]}
-      />
-      <Button
-        title="Animate"
-        onPress={() => {
-          if (clicked) {
-            animation.value = withSpring(1);
-          } else {
-            animation.value = withSpring(0);
-          }
-          setClicked(!clicked);
-        }}
-      />
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View
+          style={[
+            { width: 100, height: 100, backgroundColor: "pink" },
+            animatedStyle,
+          ]}
+        />
+      </PanGestureHandler>
     </View>
   );
 };
