@@ -1,7 +1,7 @@
-import ProfileImage from "@/animations/profile-image";
+import Cart from "@/animations/cart";
 
 const Home = () => {
-  return <ProfileImage />;
+  return <Cart />;
 };
 
 export default Home;
