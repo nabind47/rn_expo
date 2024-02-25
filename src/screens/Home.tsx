@@ -1,7 +1,7 @@
-import ThemeSwitch from "@/animations/theme-switch";
+import ProfileImage from "@/animations/profile-image";
 
 const Home = () => {
-  return <ThemeSwitch />;
+  return <ProfileImage />;
 };
 
 export default Home;
