@@ -215,3 +215,42 @@ const Home = () => {
 
 export default Home;
 ```
+
+## Gesture Handler
+
+```tsx
+import { StyleSheet, View } from "react-native";
+import { PanGestureHandler } from "react-native-gesture-handler";
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from "react-native-reanimated";
+
+const GmailArchive = () => {
+  const animation = useSharedValue(0);
+  const animatedStyle = useAnimatedStyle(() => {
+    return { transform: [{ translateX: animation.value }] };
+  });
+
+  const gestureHandler = useAnimatedGestureHandler({
+    onStart: (event, ctx) => {
+      ctx.startX = animation.value;
+    },
+    onActive: (event, ctx: any) => {
+      animation.value = ctx.startX + event.translationX;
+    },
+    onEnd: (event, ctx) => {},
+  });
+
+  return (
+    <View style={styles.container}>
+      <PanGestureHandler onGestureEvent={gestureHandler}>
+        <Animated.View style={styles.card}>
+          <Animated.View style={[styles.o, animatedStyle]}></Animated.View>
+        </Animated.View>
+      </PanGestureHandler>
+    </View>
+  );
+};
+```

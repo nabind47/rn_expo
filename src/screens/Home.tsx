@@ -1,7 +1,7 @@
-import SearchBox from "@/animations/search-box";
+import GmailArchive from "@/animations/gmail-archive";
 
 const Home = () => {
-  return <SearchBox />;
+  return <GmailArchive />;
 };
 
 export default Home;
