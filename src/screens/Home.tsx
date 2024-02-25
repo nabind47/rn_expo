@@ -1,7 +1,7 @@
-import ImageSlider from "@/animations/image-slider";
+import ThemeSwitch from "@/animations/theme-switch";
 
 const Home = () => {
-  return <ImageSlider />;
+  return <ThemeSwitch />;
 };
 
 export default Home;
