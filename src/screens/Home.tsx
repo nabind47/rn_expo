@@ -1,7 +1,7 @@
-import GmailArchive from "@/animations/gmail-archive";
+import ImageSlider from "@/animations/image-slider";
 
 const Home = () => {
-  return <GmailArchive />;
+  return <ImageSlider />;
 };
 
 export default Home;
