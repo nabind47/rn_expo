@@ -1,7 +1,7 @@
-import Cart from "@/animations/cart";
+import BottomBar from "@/animations/bottom-bar";
 
 const Home = () => {
-  return <Cart />;
+  return <BottomBar />;
 };
 
 export default Home;
