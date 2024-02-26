@@ -1,7 +1,7 @@
-import BottomBar from "@/animations/bottom-bar";
+import ImageFlip from "@/animations/image-flip";
 
 const Home = () => {
-  return <BottomBar />;
+  return <ImageFlip />;
 };
 
 export default Home;
