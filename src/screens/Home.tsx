@@ -1,7 +1,7 @@
-import ImageFlip from "@/animations/image-flip";
+import InstagramStories from "@/animations/instagram/instagram-stories";
 
 const Home = () => {
-  return <ImageFlip />;
+  return <InstagramStories />;
 };
 
 export default Home;
