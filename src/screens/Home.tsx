@@ -1,5 +1,5 @@
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { FlatList, Image, SafeAreaView, StyleSheet } from "react-native";
+import { FlatList, Image, SafeAreaView, StyleSheet, View } from "react-native";
 
 const IMAGES = [
   {
@@ -29,18 +29,17 @@ const IMAGES = [
 ];
 
 const HomeScreen = () => {
-  const bottomTabBarHeight = useBottomTabBarHeight();
+  const paddingBottom = useBottomTabBarHeight();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <FlatList
-        contentContainerStyle={[
-          styles.listContainer,
-          { paddingBottom: bottomTabBarHeight },
-        ]}
+        contentContainerStyle={[styles.listContainer]}
         data={IMAGES}
         renderItem={({ item }) => (
-          <Image style={styles.img} source={{ uri: item.url }} />
+          <View style={{ paddingBottom }}>
+            <Image style={styles.img} source={{ uri: item.url }} />
+          </View>
         )}
         keyExtractor={(item, _i) => item.url}
       />

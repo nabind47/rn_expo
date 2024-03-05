@@ -65,9 +65,9 @@ const Routes = () => {
             },
             tabBarBackground: () => (
               <BlurView
-                tint="systemUltraThinMaterial"
+                // tint="default"
                 // control the intensity of the blur effect
-                intensity={60}
+                intensity={40}
                 style={{
                   ...StyleSheet.absoluteFillObject,
                   borderTopLeftRadius: 20,
